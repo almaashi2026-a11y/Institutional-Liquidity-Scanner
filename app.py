@@ -1,16 +1,17 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 
-app = Flask(__name__) # هذا هو المتغير الذي يبحث عنه Vercel
+# يجب أن يكون هذا السطر هو الأساس في تعريف التطبيق
+app = Flask(__name__)
 
-@app.route('/')
-def home():
+@app.route('/', methods=['GET'])
+def index():
     return "السيرفر يعمل يا عبد الرحمن!"
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    # هنا سنضيف لاحقاً كود التعامل مع الإشارات
-    return "تم الاستلام", 200
+    # استقبال البيانات من TradingView
+    data = request.json
+    print(f"بيانات مستلمة: {data}")
+    return jsonify({"status": "received"}), 200
 
-if __name__ == '__main__':
-    app.run()
-    
+# لا تقم بإضافة if __name__ == '__main__':
