@@ -1,18 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 
-app = Flask(__name__)
+app = Flask(__name__) # هذا هو المتغير الذي يبحث عنه Vercel
 
-@app.route('/', methods=['GET'])
-def index():
-    return "السيرفر يعمل يا عبد الرحمن! النظام جاهز لاستقبال الإشارات."
+@app.route('/')
+def home():
+    return "السيرفر يعمل يا عبد الرحمن!"
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    data = request.json
-    print("إشارة واردة:", data)
-    # هنا سيتم لاحقاً إضافة كود ربط تليجرام
-    return jsonify({"status": "success"}), 200
+    # هنا سنضيف لاحقاً كود التعامل مع الإشارات
+    return "تم الاستلام", 200
 
 if __name__ == '__main__':
-    app.run(port=5000)
-  
+    app.run()
+    
